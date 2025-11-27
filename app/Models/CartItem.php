@@ -15,7 +15,7 @@ class CartItem extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function total(): string
+    public function formattedTotal(): string
     {
         return Number::currency($this->quantity * $this->product->price_cents / 100, 'USD');
     }

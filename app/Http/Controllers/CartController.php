@@ -3,59 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    // ------------------------------
-    // Store
-    // ------------------------------
-    public function store(Request $request)
+    public function store(Product $product)
     {
-        $product = Product::findOrFail($request->product_id);
-
-        $cart = Cart::getOrNew();
+        $cart = Cart::getOrCreate();
 
         $cart->add($product);
 
         return back();
     }
 
-    // ------------------------------
-    // Reduce
-    // ------------------------------
-    public function reduce(Request $request)
+    public function reduce(Product $product)
     {
-        $product = Product::findOrFail($request->product_id);
-
-        $cart = Cart::getOrNew();
+        $cart = Cart::getOrCreate();
 
         $cart->reduce($product);
 
         return back();
     }
 
-    // ------------------------------
-    // Destroy
-    // ------------------------------
-    public function destroy(Request $request)
+    public function destroy(CartItem $cartItem)
     {
-        $product = Product::findOrFail($request->product_id);
-
-        $cart = Cart::getOrNew();
-
-        $cart->remove($product);
+        $cartItem->delete();
 
         return back();
     }
 
-    // ------------------------------
-    // Clear
-    // ------------------------------
     public function clear()
     {
-        $cart = Cart::getOrNew();
+        $cart = Cart::getOrCreate();
 
         $cart->items()->delete();
 

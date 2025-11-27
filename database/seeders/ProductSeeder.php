@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class ProductSeeder extends Seeder
 {
@@ -13,8 +13,7 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Read the data from data.json
-        $data = json_decode(file_get_contents(database_path('seeders/data.json')));
+        $data = json_decode(File::get(database_path('seeders/data.json')));
 
         foreach ($data as $item) {
             Product::create([

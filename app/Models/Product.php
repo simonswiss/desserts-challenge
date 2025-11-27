@@ -7,7 +7,7 @@ use Illuminate\Support\Number;
 
 class Product extends Model
 {
-    public function price(): string
+    public function formattedPrice(): string
     {
         return Number::currency($this->price_cents / 100, 'USD');
     }
